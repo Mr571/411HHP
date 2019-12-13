@@ -1,5 +1,6 @@
 package main.java.classes;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Day 
@@ -13,12 +14,12 @@ public class Day
 	private int bread;
 	private int smSub;
 	private int lgSub;
-	private double cost;
-	private double revenue;
+	private int hours;
+	private String empCost;
 
 	public Day(){}
 	
-	public Day(int date, int jr, int small, int medium, int large, int XL, int bread, int smSub, int lgSub, double cost, double revenue)
+	public Day(int date, int jr, int small, int medium, int large, int XL, int bread, int smSub, int lgSub, int hours, String string)
 	{
 		this.setDate(date);
 		this.setJr(jr);
@@ -29,8 +30,8 @@ public class Day
 		this.setBread(bread);
 		this.setSmSub(smSub);
 		this.setLgSub(lgSub);
-		this.setCost(cost);
-		this.setRevenue(revenue);
+		this.setEmpCost(string);
+		this.setHours(hours);
 	}
 
 	public int getDate() {
@@ -105,19 +106,19 @@ public class Day
 		this.lgSub = lgSub;
 	}
 
-	public double getCost() {
-		return cost;
+	public int getHours() {
+		return hours;
 	}
 
-	public void setCost(double cost) {
-		this.cost = cost;
+	public void setHours(int hours) {
+		this.hours = hours;
 	}
 
-	public double getRevenue() {
-		return revenue;
+	public String getEmpCost() {
+		return empCost;
 	}
 
-	public void setRevenue(double revenue) {
-		this.revenue = revenue;
+	public void setEmpCost(String string) {
+		this.empCost = string;
 	}
 }

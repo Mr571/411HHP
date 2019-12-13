@@ -1,59 +1,65 @@
 package main.java;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import main.java.classes.*;
 
 public class application 
 {
-	public static void main(String[] args) 
+	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException 
 	{
-		ArrayList <Product> stock = new ArrayList <Product>(); //I don't know if we need this
-		ArrayList <Product> menu = new ArrayList <Product>(); //Everything we have on the menu, see below
-		ArrayList <Employee> employees = new ArrayList <Employee>(); //Our stock employees
 		ArrayList <Day> calendar = new ArrayList <Day>(); //Our year of data
-		Product pro = new Product();
-		Employee emp = new Employee();
 		Day day = new Day();
-		Random rand = new Random();
-		int doughStock = 100;
+		DecimalFormat df = new DecimalFormat("#.##");
+		df.setRoundingMode(RoundingMode.CEILING);
 		
-		emp = new Employee("Jimmy", 7.50); //Jimmy, $7.50/hour
-		employees.add(emp);
-		emp = new Employee("Joe", 9.63);
-		employees.add(emp);
-		emp = new Employee("Jim", 11.37);
-		employees.add(emp);
-		emp = new Employee("Bob", 23.98);
-		employees.add(emp);
+		int tempInt = 0;
 		
 		for(int i = 1; i <= (120 + (366 * 4)); i++) // random number of days generated from some Jan. 1 on. Replace 120 with current day.
 		{
-			day = new Day(i, rand.nextInt(25), rand.nextInt(25), rand.nextInt(25), rand.nextInt(25), rand.nextInt(25), rand.nextInt(25), rand.nextInt(25), rand.nextInt(25), rand.nextInt(25), rand.nextInt(25));
+			day = new Day(i, ThreadLocalRandom.current().nextInt(25), ThreadLocalRandom.current().nextInt(25), ThreadLocalRandom.current().nextInt(25), ThreadLocalRandom.current().nextInt(25), ThreadLocalRandom.current().nextInt(25), ThreadLocalRandom.current().nextInt(25), ThreadLocalRandom.current().nextInt(25), ThreadLocalRandom.current().nextInt(25), tempInt = ThreadLocalRandom.current().nextInt(16, 81), df.format(tempInt * ThreadLocalRandom.current().nextDouble(7.5, 15.01)));
 			calendar.add(day);
 		}
 		
-		pro = new Product("Jr.", 4, 6); //Jr, $4, 6oz.
-		menu.add(pro);
-		pro = new Product("Small", 5, 9);
-		menu.add(pro);
-		pro = new Product("Medium", 8, 14);
-		menu.add(pro);
-		pro = new Product("Large", 10, 19);
-		menu.add(pro);
-		pro = new Product("XL", 14, 27);
-		menu.add(pro);
-		pro = new Product("Bread", 8, 14);
-		menu.add(pro);
-		pro = new Product("Regular Sub", 5, 6);
-		menu.add(pro);
-		pro = new Product("Large Sub", 8, 9);
-		menu.add(pro);
-		
+		PrintWriter writer = new PrintWriter("data.txt", "UTF-8");
+		for(int i = 0; i < calendar.size(); i++) // random number of days generated from some Jan. 1 on. Replace 120 with current day.
+		{
+			String temp = "";
+			day = calendar.get(i);
+			temp += day.getDate();
+			temp += "|";
+			temp += day.getJr();
+			temp += "|";
+			temp += day.getSmall();
+			temp += "|";
+			temp += day.getMedium();
+			temp += "|";
+			temp += day.getLarge();
+			temp += "|";
+			temp += day.getXL();
+			temp += "|";
+			temp += day.getBread();
+			temp += "|";
+			temp += day.getSmSub();
+			temp += "|";
+			temp += day.getLgSub();
+			temp += "|";
+			temp += day.getHours();
+			temp += "|";
+			temp += day.getEmpCost();
+			temp += ";";
+			System.out.print(temp);
+			writer.println(temp);
+		} 
     }
 	
 }
